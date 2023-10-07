@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6qspqsn7mthl"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_d8l46"]
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_d8l46")
+controller_index = -1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-36, -35)
+polygon = PackedVector2Array(30, 28, 30, 43, 41, 44, 49, 35, 41, 27)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-36, -35)
+color = Color(0.372549, 0.980392, 1, 1)
+polygon = PackedVector2Array(30, 28, 41, 27, 49, 35, 41, 44, 30, 43)

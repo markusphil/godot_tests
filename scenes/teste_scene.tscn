@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b80p1cf8ovmg8"]
+
+[ext_resource type="PackedScene" uid="uid://b6qspqsn7mthl" path="res://player/player.tscn" id="1_ed478"]
+
+[node name="teste_scene" type="Node2D"]
+
+[node name="player" parent="." instance=ExtResource("1_ed478")]
+position = Vector2(63, 78)
+player_color = Color(0.984314, 0, 0.329412, 1)
+
+[node name="player2" parent="." instance=ExtResource("1_ed478")]
+position = Vector2(56, 406)
+player_color = Color(0, 1, 0, 1)
+controller_index = 0
