@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmu2btdws6ols"]
+
+[ext_resource type="Script" path="res://player/player_spawner.gd" id="1_0w4oh"]
+
+[node name="player_spawner" type="Node2D"]
+position = Vector2(571, 338)
+script = ExtResource("1_0w4oh")
