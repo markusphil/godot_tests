@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://player/player.gd" id="1_d8l46"]
 
 [node name="player" type="CharacterBody2D"]
+rotation = 6.28319
 script = ExtResource("1_d8l46")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
