@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ohd85qwrfbyl"]
+
+[ext_resource type="Texture2D" uid="uid://bvtvas1ek04bq" path="res://weapons/kunai/Kunai.svg" id="1_upoqe"]
+[ext_resource type="Script" path="res://components/weapons/projectile/Projectile.gd" id="1_yr7hp"]
+
+[node name="kunai" type="Area2D"]
+monitoring = false
+script = ExtResource("1_yr7hp")
+
+[node name="Kunai" type="Sprite2D" parent="."]
+position = Vector2(0, 7.62939e-06)
+rotation = 1.5708
+scale = Vector2(0.0945947, 0.0945947)
+texture = ExtResource("1_upoqe")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+rotation = 1.5708
+polygon = PackedVector2Array(0, -14, -3, -3, -1, 0, -1, 11, 1, 11, 1, 0, 3, -3)

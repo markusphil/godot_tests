@@ -1,0 +1,81 @@
+[gd_scene load_steps=11 format=3 uid="uid://c6odwfmy5sj3k"]
+
+[ext_resource type="Texture2D" uid="uid://b7f1njmnpwduh" path="res://enemies/onigiri/Onigiri.svg" id="1_sos5s"]
+[ext_resource type="Shader" path="res://shaders/dissolve.gdshader" id="1_xwnkt"]
+[ext_resource type="PackedScene" uid="uid://0wdhpekdchdj" path="res://components/health/health_component.tscn" id="2_aktsv"]
+[ext_resource type="PackedScene" uid="uid://cshykyegbc030" path="res://components/health/hitbox_component.tscn" id="3_8uc50"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_s257v"]
+seed = 3
+frequency = 0.0257
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_26qlq"]
+invert = true
+seamless = true
+noise = SubResource("FastNoiseLite_s257v")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kxts0"]
+resource_local_to_scene = true
+shader = ExtResource("1_xwnkt")
+shader_parameter/dissolve_rate = 0.0
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_26qlq")
+
+[sub_resource type="Animation" id="Animation_q8rdm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Onigiri:material:shader_parameter/flash_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_53lj3"]
+resource_name = "hit"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Onigiri:material:shader_parameter/flash_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.75, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vdstp"]
+_data = {
+"RESET": SubResource("Animation_q8rdm"),
+"hit": SubResource("Animation_53lj3")
+}
+
+[node name="enemy_onigiri" type="CharacterBody2D"]
+
+[node name="Onigiri" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_kxts0")
+position = Vector2(822, 341)
+scale = Vector2(0.197802, 0.197802)
+texture = ExtResource("1_sos5s")
+
+[node name="health_component" parent="." instance=ExtResource("2_aktsv")]
+position = Vector2(822, 341)
+scale = Vector2(0.197802, 0.197802)
+
+[node name="hitbox_component" parent="." instance=ExtResource("3_8uc50")]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hitbox_component"]
+visible = false
+polygon = PackedVector2Array(816, 350, 812, 348, 811, 343, 817, 332, 821, 329, 823, 329, 827, 332, 833, 342, 832, 348, 828, 350)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vdstp")
+}
