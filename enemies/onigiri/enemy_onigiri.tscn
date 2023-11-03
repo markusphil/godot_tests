@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c6odwfmy5sj3k"]
+[gd_scene load_steps=16 format=3 uid="uid://c6odwfmy5sj3k"]
 
 [ext_resource type="Script" path="res://enemies/enemy.gd" id="1_d7u0k"]
 [ext_resource type="Texture2D" uid="uid://b7f1njmnpwduh" path="res://enemies/onigiri/Onigiri.svg" id="1_sos5s"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://0wdhpekdchdj" path="res://components/health/health_component.tscn" id="2_aktsv"]
 [ext_resource type="PackedScene" uid="uid://cshykyegbc030" path="res://components/health/hitbox_component.tscn" id="3_8uc50"]
 [ext_resource type="Shader" path="res://shaders/dissolve.gdshader" id="5_rwqri"]
+[ext_resource type="Script" path="res://enemies/onigiri/SimpleBehaviour.gd" id="7_kku7s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kxts0"]
 resource_local_to_scene = true
@@ -163,10 +164,11 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_0m2my"]
 radius = 5.0
 
-[node name="enemy_onigiri" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "animationPlayer")]
+[node name="enemy_onigiri" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "animationPlayer", "behaviour")]
 script = ExtResource("1_d7u0k")
 health_component = NodePath("health_component")
 animationPlayer = NodePath("AnimationPlayer")
+behaviour = NodePath("SimpleBehaviour")
 
 [node name="Onigiri" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_kxts0")
@@ -189,5 +191,8 @@ libraries = {
 "": SubResource("AnimationLibrary_vdstp")
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0m2my")
+
+[node name="SimpleBehaviour" type="Node" parent="."]
+script = ExtResource("7_kku7s")

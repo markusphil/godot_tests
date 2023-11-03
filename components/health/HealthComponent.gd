@@ -20,6 +20,5 @@ func get_health():
 func apply_damage(amount: int):
 	took_damage.emit(amount)
 	current_health = current_health - amount
-	print(current_health)
 	if current_health <= 0:
 		health_depleted.emit()

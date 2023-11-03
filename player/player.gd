@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name Player
+
 @export var player_color: Color
 @export_range(-1, 3) var controller_index: int 
 @onready var polygon: Polygon2D = $Polygon2D

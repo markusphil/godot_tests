@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://0wdhpekdchdj" path="res://components/health/health_component.tscn" id="2_ldbje"]
 [ext_resource type="PackedScene" uid="uid://c5kmt3g3hmcxk" path="res://weapons/kunai/kunai_emitter.tscn" id="3_x8152"]
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" groups=["Player"]]
 rotation = 6.28319
 script = ExtResource("1_d8l46")
 player_color = Color(1, 0, 0, 1)
