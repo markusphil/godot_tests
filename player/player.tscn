@@ -23,4 +23,4 @@ polygon = PackedVector2Array(30, 28, 41, 27, 49, 35, 41, 44, 30, 43)
 
 [node name="kunai_emitter" parent="." instance=ExtResource("3_x8152")]
 position = Vector2(20, -8.93276e-05)
-fire_rate = 320.0
+fire_rate = 60.0

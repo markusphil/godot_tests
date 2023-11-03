@@ -5,7 +5,7 @@ class_name HealthComponent
 
 @export var max_health: int
 
-signal took_damage
+signal took_damage(amount: int)
 signal health_depleted
 
 var current_health: int
@@ -18,7 +18,8 @@ func get_health():
 	return current_health
 	
 func apply_damage(amount: int):
-	health_depleted.emit()
-	current_health =- amount
+	took_damage.emit(amount)
+	current_health = current_health - amount
+	print(current_health)
 	if current_health <= 0:
 		health_depleted.emit()

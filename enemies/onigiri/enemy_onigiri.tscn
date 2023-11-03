@@ -1,43 +1,133 @@
-[gd_scene load_steps=11 format=3 uid="uid://c6odwfmy5sj3k"]
+[gd_scene load_steps=15 format=3 uid="uid://c6odwfmy5sj3k"]
 
+[ext_resource type="Script" path="res://enemies/enemy.gd" id="1_d7u0k"]
 [ext_resource type="Texture2D" uid="uid://b7f1njmnpwduh" path="res://enemies/onigiri/Onigiri.svg" id="1_sos5s"]
-[ext_resource type="Shader" path="res://shaders/dissolve.gdshader" id="1_xwnkt"]
+[ext_resource type="Shader" path="res://shaders/hit_flash.gdshader" id="1_v6gfb"]
 [ext_resource type="PackedScene" uid="uid://0wdhpekdchdj" path="res://components/health/health_component.tscn" id="2_aktsv"]
 [ext_resource type="PackedScene" uid="uid://cshykyegbc030" path="res://components/health/hitbox_component.tscn" id="3_8uc50"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_s257v"]
-seed = 3
-frequency = 0.0257
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_26qlq"]
-invert = true
-seamless = true
-noise = SubResource("FastNoiseLite_s257v")
+[ext_resource type="Shader" path="res://shaders/dissolve.gdshader" id="5_rwqri"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kxts0"]
 resource_local_to_scene = true
-shader = ExtResource("1_xwnkt")
-shader_parameter/dissolve_rate = 0.0
-shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_26qlq")
+shader = ExtResource("1_v6gfb")
+shader_parameter/flash_color = Color(0.988235, 0, 0, 1)
+shader_parameter/flash_strength = 0.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_46shw"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7vdwl"]
+seamless = true
+noise = SubResource("FastNoiseLite_46shw")
 
 [sub_resource type="Animation" id="Animation_q8rdm"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Onigiri:material:shader_parameter/flash_strength")
+tracks/0/path = NodePath("Onigiri:material:shader")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
+"values": [ExtResource("1_v6gfb")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Onigiri:material:shader_parameter/flash_strength")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Onigiri:material:shader_parameter/dissolve_texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("NoiseTexture2D_7vdwl")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Onigiri:material:shader_parameter/dissolve_rate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
 "values": [0.0]
 }
 
-[sub_resource type="Animation" id="Animation_53lj3"]
-resource_name = "hit"
-length = 0.75
+[sub_resource type="Animation" id="Animation_vbqp1"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Onigiri:material:shader")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [ExtResource("5_rwqri")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Onigiri:material:shader_parameter/dissolve_texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("NoiseTexture2D_7vdwl")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Onigiri:material:shader_parameter/dissolve_rate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [false],
+"method": &"set_physics_process"
+}, {
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_g6sig"]
+resource_name = "hitAnimation"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -45,37 +135,59 @@ tracks/0/path = NodePath("Onigiri:material:shader_parameter/flash_strength")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6),
+"times": PackedFloat32Array(0, 0.25, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0, 0.75, 0.0]
+"values": [0.0, 0.5, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Onigiri:material:shader")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [ExtResource("1_v6gfb")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vdstp"]
 _data = {
 "RESET": SubResource("Animation_q8rdm"),
-"hit": SubResource("Animation_53lj3")
+"death": SubResource("Animation_vbqp1"),
+"hit": SubResource("Animation_g6sig")
 }
 
-[node name="enemy_onigiri" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_0m2my"]
+radius = 5.0
+
+[node name="enemy_onigiri" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "animationPlayer")]
+script = ExtResource("1_d7u0k")
+health_component = NodePath("health_component")
+animationPlayer = NodePath("AnimationPlayer")
 
 [node name="Onigiri" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_kxts0")
-position = Vector2(822, 341)
 scale = Vector2(0.197802, 0.197802)
 texture = ExtResource("1_sos5s")
 
 [node name="health_component" parent="." instance=ExtResource("2_aktsv")]
-position = Vector2(822, 341)
 scale = Vector2(0.197802, 0.197802)
+max_health = 15
 
-[node name="hitbox_component" parent="." instance=ExtResource("3_8uc50")]
+[node name="hitbox_component" parent="." node_paths=PackedStringArray("health") instance=ExtResource("3_8uc50")]
+collision_layer = 5
+health = NodePath("../health_component")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hitbox_component"]
-visible = false
-polygon = PackedVector2Array(816, 350, 812, 348, 811, 343, 817, 332, 821, 329, 823, 329, 827, 332, 833, 342, 832, 348, 828, 350)
+[node name="HitboxShape" type="CollisionPolygon2D" parent="hitbox_component"]
+polygon = PackedVector2Array(-11, 1, -5, -9, -3, -11, 0, -12, 3, -11, 5, -9, 11, 1, 11, 5, 9, 8, 6, 9, -6, 9, -9, 8, -11, 5)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_vdstp")
 }
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0m2my")

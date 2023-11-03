@@ -1,27 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://b80p1cf8ovmg8"]
+[gd_scene load_steps=3 format=3 uid="uid://b80p1cf8ovmg8"]
 
 [ext_resource type="PackedScene" uid="uid://cmu2btdws6ols" path="res://player/player_spawner.tscn" id="1_2j0od"]
-[ext_resource type="Texture2D" uid="uid://b7f1njmnpwduh" path="res://enemies/onigiri/Onigiri.svg" id="2_nwdgo"]
-[ext_resource type="PackedScene" uid="uid://0wdhpekdchdj" path="res://components/health/health_component.tscn" id="3_7bw56"]
-[ext_resource type="PackedScene" uid="uid://cshykyegbc030" path="res://components/health/hitbox_component.tscn" id="4_03fve"]
+[ext_resource type="PackedScene" uid="uid://c6odwfmy5sj3k" path="res://enemies/onigiri/enemy_onigiri.tscn" id="1_2om0n"]
 
 [node name="teste_scene" type="Node2D"]
 
+[node name="enemy_onigiri" parent="." instance=ExtResource("1_2om0n")]
+position = Vector2(669, 263)
+
 [node name="player_spawner" parent="." instance=ExtResource("1_2j0od")]
-
-[node name="enemie_onigiri" type="CharacterBody2D" parent="."]
-
-[node name="Onigiri" type="Sprite2D" parent="enemie_onigiri"]
-position = Vector2(822, 341)
-scale = Vector2(0.197802, 0.197802)
-texture = ExtResource("2_nwdgo")
-
-[node name="health_component" parent="enemie_onigiri" instance=ExtResource("3_7bw56")]
-position = Vector2(822, 341)
-scale = Vector2(0.197802, 0.197802)
-
-[node name="hitbox_component" parent="enemie_onigiri" node_paths=PackedStringArray("health") instance=ExtResource("4_03fve")]
-health = NodePath("../health_component")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="enemie_onigiri/hitbox_component"]
-polygon = PackedVector2Array(816, 350, 812, 348, 811, 343, 817, 332, 821, 329, 823, 329, 827, 332, 833, 342, 832, 348, 828, 350)
