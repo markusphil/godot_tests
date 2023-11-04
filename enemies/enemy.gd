@@ -10,9 +10,10 @@ class_name Enemy
 func _ready():
 	health_component.took_damage.connect(_on_took_damage)
 	health_component.health_depleted.connect(_on_health_depleted)
+	behaviour.parent = self
 	
 func _physics_process(_delta):
-	behaviour.provide_movement(self)
+	behaviour.perform_movement()
 
 func _on_took_damage(amount:int):
 	# TODO: use the amount to display damage numbers
