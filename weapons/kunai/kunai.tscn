@@ -4,6 +4,8 @@
 [ext_resource type="Script" path="res://components/weapons/projectile/Projectile.gd" id="1_yr7hp"]
 
 [node name="kunai" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
 monitoring = false
 script = ExtResource("1_yr7hp")
 

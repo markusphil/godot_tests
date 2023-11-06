@@ -6,20 +6,24 @@ class_name Player
 @export_range(-1, 3) var controller_index: int 
 @onready var polygon: Polygon2D = $Polygon2D
 
+@export var health_component: HealthComponent
+@export var animationPlayer: AnimationPlayer
+@export var hitbox_component: HitBoxComponent
+
 const BASE_SPEED = 250
 const ROTATION_SPEED = 15
 const ROTATION_DEADZONE = 0.1
-
 
 func init(device_id: int, color: Color):
 	player_color = color
 	controller_index = device_id
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	polygon.color = player_color
+	hitbox_component.health = health_component
+	health_component.took_damage.connect(_on_took_damage)
+	health_component.health_depleted.connect(_on_health_depleted)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	handle_rotation(delta)
 	velocity = MultiplayerInput.get_vector(controller_index, "left", "right", "up", "down") * BASE_SPEED
@@ -35,3 +39,9 @@ func handle_rotation(delta: float) -> void:
 			target_angle = right_stick_input.angle()	
 	# finds the right roation path respecting angle wrap and limit the roation speed
 	rotation = lerp_angle(rotation, target_angle, ROTATION_SPEED * delta)
+	
+func _on_took_damage(amount):
+	animationPlayer.play("hit")
+	
+func _on_health_depleted():
+	print("You died!")
