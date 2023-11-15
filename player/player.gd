@@ -4,19 +4,23 @@ class_name Player
 
 @export var player_color: Color
 @export_range(-1, 3) var controller_index: int 
+@export_range(0,3) var player_id: int
+
 @onready var polygon: Polygon2D = $Polygon2D
 
 @export var health_component: HealthComponent
 @export var animationPlayer: AnimationPlayer
 @export var hitbox_component: HitBoxComponent
 
+
 const BASE_SPEED = 250
 const ROTATION_SPEED = 15
 const ROTATION_DEADZONE = 0.1
 
-func init(device_id: int, color: Color):
+func init(player_id: int, device_id: int, color: Color):
 	player_color = color
 	controller_index = device_id
+	player_id = player_id
 
 func _ready():
 	polygon.color = player_color
