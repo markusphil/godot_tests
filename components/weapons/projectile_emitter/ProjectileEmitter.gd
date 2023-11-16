@@ -18,6 +18,7 @@ func reset_timer():
 
 func _emit_projectile():
 	var projectile_instance = projectile.instantiate() as Projectile
+	# TODO: inject the root sceene in a way that does not depend on the node path!
 	get_parent().get_parent().add_child(projectile_instance)
 	projectile_instance.global_transform = self.global_transform
 	

@@ -14,6 +14,7 @@ func _ready():
 	add_child(timer)
 	timer.timeout.connect(_select_target)
 	timer.start()
+	_select_target() # Select the inital target
 
 func perform_movement():
 	if target != null:
