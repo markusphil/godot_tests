@@ -9,16 +9,19 @@ class_name EnemySpawner
 @export var spawn_rate: float = 30.0 # Spawns per minute
 @export var spawn_base_radius: float = 500.0
 
+@onready var spawn_timer: Timer = Timer.new()
+
+# TODO: Keep track of enemies far away from the camera 
+#       and teleport them closer to the players
 
 func _ready():
-	reset_timer() # setup the timer
-	_spawn_enemy() # spawn the initial enemy
+	# Setup timer
+	add_child(spawn_timer)
+	spawn_timer.timeout.connect(_spawn_enemy)
+	_spawn_enemy() # Spawn the initial enemy
 	
 func reset_timer():
 	var spawn_interval = 60.0 / spawn_rate
-	var spawn_timer = Timer.new()
-	add_child(spawn_timer)
-	spawn_timer.timeout.connect(_spawn_enemy)
 	spawn_timer.start(spawn_interval)
 
 func _spawn_enemy():
@@ -31,6 +34,8 @@ func _spawn_enemy():
 	# Spawn enemies on random positions on a circle around the camera center
 	enemy.position = camera.position + Vector2(spawn_radius, 0).rotated(randf_range(0, 2*PI))
 	
-	
+func update_rate(rate: float):
+	spawn_rate = rate
+	reset_timer()
 	
 
