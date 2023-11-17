@@ -1,26 +1,26 @@
 [gd_scene load_steps=6 format=3 uid="uid://b80p1cf8ovmg8"]
 
+[ext_resource type="Script" path="res://level/PlayerSpawner.gd" id="1_26cpr"]
 [ext_resource type="PackedScene" uid="uid://c6odwfmy5sj3k" path="res://enemies/onigiri/enemy_onigiri.tscn" id="1_gqbs2"]
-[ext_resource type="Script" path="res://player/PlayerSpawner.gd" id="1_pws24"]
-[ext_resource type="Script" path="res://camera/MultiTrackingCamera.gd" id="3_tqrkf"]
+[ext_resource type="Script" path="res://level/MultiTrackingCamera.gd" id="2_ddpu6"]
+[ext_resource type="Script" path="res://level/EnemySpawner.gd" id="4_bvrhb"]
 [ext_resource type="Script" path="res://ui/UIController.gd" id="4_udci5"]
-[ext_resource type="Script" path="res://enemies/EnemySpawner.gd" id="5_fbfpa"]
 
 [node name="teste_scene" type="Node2D"]
 
 [node name="PlayerSpawner" type="Node2D" parent="." node_paths=PackedStringArray("camera", "ui_controller")]
-script = ExtResource("1_pws24")
+script = ExtResource("1_26cpr")
 camera = NodePath("../MultiTrackingCamera")
 ui_controller = NodePath("../UIController")
 
 [node name="MultiTrackingCamera" type="Camera2D" parent="."]
-script = ExtResource("3_tqrkf")
+script = ExtResource("2_ddpu6")
 
 [node name="UIController" type="CanvasLayer" parent="."]
 script = ExtResource("4_udci5")
 
 [node name="EnemySpawner" type="Node" parent="." node_paths=PackedStringArray("camera", "spawn_root_node")]
-script = ExtResource("5_fbfpa")
+script = ExtResource("4_bvrhb")
 enemy_scene = ExtResource("1_gqbs2")
 camera = NodePath("../MultiTrackingCamera")
 spawn_root_node = NodePath("..")
