@@ -1,9 +1,10 @@
 # Static utility functions for target selection
 extends Node
 
-func find_nearest_player(enemy: Enemy) -> Player:
+
+func find_nearest_alive_player(enemy: Enemy) -> Player:
 	var players = get_tree().get_nodes_in_group("Player")\
-					   		.filter(func(node:Node): return node is Player)
+					   		.filter(func(node:Node): return node is Player and not node.is_dead)
 	if players.size() > 0:
 		return find_closest_to(enemy, players)
 	else:

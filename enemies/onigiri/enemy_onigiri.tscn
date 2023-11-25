@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://0wdhpekdchdj" path="res://components/health/health_component.tscn" id="2_aktsv"]
 [ext_resource type="PackedScene" uid="uid://cshykyegbc030" path="res://components/health/hitbox_component.tscn" id="3_8uc50"]
 [ext_resource type="Shader" path="res://shaders/dissolve.gdshader" id="5_rwqri"]
-[ext_resource type="Script" path="res://enemies/onigiri/SimpleBehaviour.gd" id="7_kku7s"]
+[ext_resource type="Script" path="res://enemies/behaviour/SimpleBehaviour.gd" id="7_dl0ln"]
 [ext_resource type="Script" path="res://components/hurtbox/HurtBox.gd" id="8_vv4dj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kxts0"]
@@ -197,7 +197,7 @@ libraries = {
 shape = SubResource("CircleShape2D_0m2my")
 
 [node name="SimpleBehaviour" type="Node" parent="."]
-script = ExtResource("7_kku7s")
+script = ExtResource("7_dl0ln")
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 2

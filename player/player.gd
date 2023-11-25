@@ -12,10 +12,16 @@ class_name Player
 @export var animationPlayer: AnimationPlayer
 @export var hitbox_component: HitBoxComponent
 
+signal player_died(id: int)
 
-const BASE_SPEED = 250
+# Player state
+var is_dead: bool = false
+
+
+const BASE_SPEED = 250 # Should be part of player attributes.
 const ROTATION_SPEED = 15
 const ROTATION_DEADZONE = 0.1
+
 
 func init(player_id: int, device_id: int, color: Color):
 	player_color = color
@@ -23,6 +29,7 @@ func init(player_id: int, device_id: int, color: Color):
 	player_id = player_id
 
 func _ready():
+	# Polygon color seems not to work together with the shader material.
 	polygon.color = player_color
 	hitbox_component.health = health_component
 	health_component.took_damage.connect(_on_took_damage)
@@ -49,3 +56,8 @@ func _on_took_damage(amount):
 	
 func _on_health_depleted():
 	print("You died!")
+	is_dead = true
+	player_died.emit(player_id)
+	# How to ensure the healthbar is updated?
+	set_process_mode(Node.PROCESS_MODE_DISABLED)
+

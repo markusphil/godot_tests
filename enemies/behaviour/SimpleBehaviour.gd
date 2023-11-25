@@ -22,6 +22,6 @@ func perform_movement():
 		parent.move_and_slide()
 
 func _select_target():
-	target = TargetUtils.find_nearest_player(parent)
+	target = TargetUtils.find_nearest_alive_player(parent)
 
 	
