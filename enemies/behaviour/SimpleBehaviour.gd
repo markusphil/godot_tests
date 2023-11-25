@@ -23,5 +23,7 @@ func perform_movement():
 
 func _select_target():
 	target = TargetUtils.find_nearest_alive_player(parent)
+	if target == null:
+		target = TargetUtils.find_nearest_player(parent) 
 
 	

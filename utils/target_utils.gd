@@ -3,8 +3,17 @@ extends Node
 
 
 func find_nearest_alive_player(enemy: Enemy) -> Player:
+	return find_nearest_player_with_filter(
+			enemy,
+			func(node:Node): return node is Player and not node.is_dead
+	)
+
+func find_nearest_player(enemy: Enemy) -> Player:
+	return find_nearest_player_with_filter(enemy, func(node:Node): return node is Player)
+		
+func find_nearest_player_with_filter(enemy: Enemy, filter: Callable):
 	var players = get_tree().get_nodes_in_group("Player")\
-					   		.filter(func(node:Node): return node is Player and not node.is_dead)
+					   		.filter(filter)
 	if players.size() > 0:
 		return find_closest_to(enemy, players)
 	else:
