@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://b80p1cf8ovmg8"]
+
+[ext_resource type="Script" path="res://level/LevelManager.gd" id="1_vbu3i"]
+[ext_resource type="Script" path="res://level/PlayerSpawner.gd" id="2_av7a1"]
+[ext_resource type="Script" path="res://level/MultiTrackingCamera.gd" id="3_aw2pb"]
+[ext_resource type="Script" path="res://ui/UIController.gd" id="4_nhp4n"]
+[ext_resource type="Script" path="res://level/EnemySpawner.gd" id="5_teji1"]
+[ext_resource type="PackedScene" uid="uid://c6odwfmy5sj3k" path="res://enemies/onigiri/enemy_onigiri.tscn" id="6_3cg48"]
+[ext_resource type="Script" path="res://level/ProgressManager.gd" id="7_e8s1b"]
+
+[node name="test_level" type="Node2D" node_paths=PackedStringArray("player_spawner")]
+script = ExtResource("1_vbu3i")
+player_spawner = NodePath("PlayerSpawner")
+
+[node name="PlayerSpawner" type="Node2D" parent="." node_paths=PackedStringArray("camera", "ui_controller")]
+script = ExtResource("2_av7a1")
+camera = NodePath("../MultiTrackingCamera")
+ui_controller = NodePath("../UIController")
+
+[node name="MultiTrackingCamera" type="Camera2D" parent="."]
+script = ExtResource("3_aw2pb")
+
+[node name="UIController" type="CanvasLayer" parent="."]
+script = ExtResource("4_nhp4n")
+
+[node name="EnemySpawner" type="Node" parent="." node_paths=PackedStringArray("camera", "spawn_root_node")]
+script = ExtResource("5_teji1")
+enemy_scene = ExtResource("6_3cg48")
+camera = NodePath("../MultiTrackingCamera")
+spawn_root_node = NodePath("..")
+spawn_rate = 60.0
+spawn_base_radius = 350.0
+
+[node name="ProgressManager" type="Node" parent="." node_paths=PackedStringArray("spawner")]
+script = ExtResource("7_e8s1b")
+spawner = NodePath("../EnemySpawner")
+raise_interval = 10.0
