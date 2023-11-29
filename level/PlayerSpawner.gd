@@ -55,13 +55,19 @@ func spawn_player(device_id: int) -> void:
 	camera.add_target(player_node)
 	ui_controller.add_player_ui(player_node)
 
-func _on_player_died(id: int):
-	print("Player %s died!" % id)
-	var are_all_players_dead = true
-	for player in players:
-		are_all_players_dead = player.is_dead && are_all_players_dead
-	if are_all_players_dead:
+func _on_player_died(player: Player):
+	print("Player %s died!" % player.id)
+	# Remove player from camera
+	camera.remove_target(player)
+	# End level if no player is left
+	if _are_all_players_dead():
 		all_players_died.emit()
+
+func _are_all_players_dead() -> bool:
+	var accu = true
+	for player in players:
+		accu = player.is_dead && accu
+	return accu
 	
 
 	

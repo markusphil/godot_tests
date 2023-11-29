@@ -196,8 +196,9 @@ libraries = {
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0m2my")
 
-[node name="SimpleBehaviour" type="Node" parent="."]
+[node name="SimpleBehaviour" type="Node" parent="." node_paths=PackedStringArray("parent")]
 script = ExtResource("7_dl0ln")
+parent = NodePath("..")
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 2

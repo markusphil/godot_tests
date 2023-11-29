@@ -18,5 +18,5 @@ const PLAYER_UI_POSITIONS = [
 func add_player_ui(player: Player):
 	var player_ui = player_ui_scene.instantiate()
 	player_ui.player = player
-	player_ui.position = PLAYER_UI_POSITIONS[player.player_id]
+	player_ui.position = PLAYER_UI_POSITIONS[player.id]
 	add_child(player_ui)

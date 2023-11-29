@@ -10,7 +10,7 @@ class_name PlayerUI
 
 func _ready():
 	print("ready")
-	player_label.text = "Player: %s" % (player.player_id + 1)
+	player_label.text = "Player: %s" % (player.id + 1)
 	health_bar.min_value = 0
 	health_bar.max_value = player.health_component.max_health
 	_set_current_hp(player.health_component.current_health)

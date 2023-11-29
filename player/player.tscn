@@ -77,7 +77,6 @@ _data = {
 [node name="player" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "animationPlayer", "hitbox_component") groups=["Player"]]
 rotation = 6.28319
 script = ExtResource("1_d8l46")
-player_color = Color(0.258824, 0.521569, 0.941176, 1)
 controller_index = -1
 health_component = NodePath("health_component")
 animationPlayer = NodePath("AnimationPlayer")

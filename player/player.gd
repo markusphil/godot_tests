@@ -2,9 +2,9 @@ extends CharacterBody2D
 
 class_name Player
 
-@export var player_color: Color
+@export var color: Color
 @export_range(-1, 3) var controller_index: int 
-@export_range(0,3) var player_id: int
+@export_range(0,3) var id: int
 
 @onready var polygon: Polygon2D = $Polygon2D
 
@@ -12,7 +12,7 @@ class_name Player
 @export var animationPlayer: AnimationPlayer
 @export var hitbox_component: HitBoxComponent
 
-signal player_died(id: int)
+signal player_died(player: Player)
 
 # Player state
 var is_dead: bool = false
@@ -23,14 +23,14 @@ const ROTATION_SPEED = 15
 const ROTATION_DEADZONE = 0.1
 
 
-func init(player_id: int, device_id: int, color: Color):
-	player_color = color
+func init(player_id: int, device_id: int, player_color: Color):
+	color = player_color
 	controller_index = device_id
-	player_id = player_id
+	id = player_id
 
 func _ready():
 	# Polygon color seems not to work together with the shader material.
-	polygon.color = player_color
+	polygon.color = color
 	hitbox_component.health = health_component
 	health_component.took_damage.connect(_on_took_damage)
 	health_component.health_depleted.connect(_on_health_depleted)
@@ -57,7 +57,7 @@ func _on_took_damage(amount):
 func _on_health_depleted():
 	print("You died!")
 	is_dead = true
-	player_died.emit(player_id)
+	player_died.emit(self)
 	# How to ensure the healthbar is updated?
 	set_process_mode(Node.PROCESS_MODE_DISABLED)
 
